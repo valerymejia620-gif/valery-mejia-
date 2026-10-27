@@ -1,0 +1,6 @@
+{
+  "name": "PREMIUM QUALITY – Luxury Edition",
+  "description": "Landing page de lujo para la perfumería PREMIUM QUALITY – Luxury Edition. Fragancias exclusivas, catálogo interactivo, guía de selección y atención directa por WhatsApp.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
