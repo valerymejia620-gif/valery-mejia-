@@ -35,7 +35,7 @@ export const PERFUMES_DATA: Perfume[] = [
     recommendedOccasion: ['Noche & Seducción', 'Citas Románticas', 'Clima Frío / Templado'],
     intensity: 'Intensa',
     longevity: '12+ Horas',
-    image: '/src/assets/images/perfume_berry_on_top_1793055744684.jpg',
+    image: '/images/perfume_berry_on_top.jpg',
     defaultPrice: 'Consultar precio'
   },
   {
@@ -54,7 +54,7 @@ export const PERFUMES_DATA: Perfume[] = [
     recommendedOccasion: ['Elegancia & Eventos', 'Citas Especiales', 'Todo el año'],
     intensity: 'Intensa',
     longevity: '10-12 Horas',
-    image: '/src/assets/images/perfume_donna_roma_1793055743801.jpg',
+    image: '/images/perfume_donna_roma.jpg',
     defaultPrice: 'Consultar precio'
   },
   {
@@ -73,7 +73,7 @@ export const PERFUMES_DATA: Perfume[] = [
     recommendedOccasion: ['Uso Diario & Oficina', 'Eventos Nocturnos', 'Firma Personal'],
     intensity: 'Intensa',
     longevity: '10-14 Horas',
-    image: '/src/assets/images/perfume_sauvage_1793055743257.jpg',
+    image: '/images/perfume_sauvage.jpg',
     defaultPrice: 'Consultar precio'
   },
   {
@@ -92,7 +92,7 @@ export const PERFUMES_DATA: Perfume[] = [
     recommendedOccasion: ['Galas & Bodas', 'Cenas Románticas', 'Momentos Inolvidables'],
     intensity: 'Extrema',
     longevity: '14+ Horas',
-    image: '/src/assets/images/perfume_dlina_exclusive_1793055760110.jpg',
+    image: '/images/perfume_dlina_exclusive.jpg',
     defaultPrice: 'Consultar precio'
   },
   {
@@ -111,7 +111,7 @@ export const PERFUMES_DATA: Perfume[] = [
     recommendedOccasion: ['Noche & Seducción', 'Fiestas Exclusivas', 'Clima Frío'],
     intensity: 'Intensa',
     longevity: '10-12 Horas',
-    image: '/src/assets/images/perfume_good_girl_luxury_1793055744710.jpg',
+    image: '/images/perfume_good_girl.jpg',
     defaultPrice: 'Consultar precio'
   },
   {
@@ -130,7 +130,7 @@ export const PERFUMES_DATA: Perfume[] = [
     recommendedOccasion: ['Fiestas & Vida Nocturna', 'Citas y Conquista', 'Tardes Enérgicas'],
     intensity: 'Intensa',
     longevity: '10-12 Horas',
-    image: '/src/assets/images/perfume_eros_luxury_1793055761303.jpg',
+    image: '/images/perfume_eros.jpg',
     defaultPrice: 'Consultar precio'
   },
   {
@@ -149,7 +149,7 @@ export const PERFUMES_DATA: Perfume[] = [
     recommendedOccasion: ['Uso Diario & Deportivo', 'Reuniones de Día', 'Clima Cálido'],
     intensity: 'Moderada',
     longevity: '8-10 Horas',
-    image: '/src/assets/images/perfume_invictus_luxury_1793055762149.jpg',
+    image: '/images/perfume_invictus.jpg',
     defaultPrice: 'Consultar precio'
   },
   {
@@ -168,7 +168,7 @@ export const PERFUMES_DATA: Perfume[] = [
     recommendedOccasion: ['Días Soleados & Playa', 'Oficina & Elegancia Serena', 'Uso Cotidiano'],
     intensity: 'Moderada',
     longevity: '8-10 Horas',
-    image: '/src/assets/images/perfume_acqua_gio_1793055761527.jpg',
+    image: '/images/perfume_acqua_gio.jpg',
     defaultPrice: 'Consultar precio'
   }
 ];

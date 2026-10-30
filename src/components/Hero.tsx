@@ -121,10 +121,16 @@ export const Hero: React.FC = () => {
               {/* Main Image Container */}
               <div className="relative rounded-lg overflow-hidden border border-[#d4af37]/30 bg-neutral-900 shadow-2xl group">
                 <img
-                  src="/src/assets/images/hero_luxury_perfume_1793055740447.jpg"
+                  src="/images/hero_luxury_perfume.jpg"
                   alt="Frasco de perfume de lujo de PREMIUM QUALITY – Luxury Edition sobre mármol negro"
                   className="w-full h-[460px] sm:h-[520px] object-cover object-center transform transition-transform duration-700 group-hover:scale-105"
                   referrerPolicy="no-referrer"
+                  onError={(e) => {
+                    const target = e.currentTarget;
+                    if (!target.src.includes('hero_luxury_perfume_1793055740447.jpg')) {
+                      target.src = '/images/hero_luxury_perfume_1793055740447.jpg';
+                    }
+                  }}
                 />
 
                 {/* Subtle dark gradient scrim overlay at the base */}
