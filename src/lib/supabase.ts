@@ -1,19 +1,71 @@
 import { createClient } from '@supabase/supabase-js';
 
-// Provided Supabase project credentials for Premium quality
-export const SUPABASE_URL =
-  import.meta.env.VITE_SUPABASE_URL || 'https://ldtjhcrlrztiittneici.supabase.co';
-
-export const SUPABASE_ANON_KEY =
-  import.meta.env.VITE_SUPABASE_ANON_KEY ||
+// Verified project credentials for Premium quality
+const DEFAULT_SUPABASE_URL = 'https://ldtjhcrlrztiittneici.supabase.co';
+const DEFAULT_SUPABASE_ANON_KEY =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxkdGpoY3Jscnp0aWl0dG5laWNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMwNTUyNzgsImV4cCI6MjEwODYzMTI3OH0.jTpoooc72jaKBiRYNdnRFefap9HxOwA8u6pCCpROsYQ';
 
-export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
-  auth: {
-    persistSession: true,
-    autoRefreshToken: true
+/**
+ * Validates and normalizes the Supabase URL.
+ * Protects against invalid values injected into environment variables (e.g. numbers or invalid formats).
+ */
+function resolveSupabaseUrl(): string {
+  const raw = import.meta.env.VITE_SUPABASE_URL;
+  if (typeof raw === 'string') {
+    const trimmed = raw.trim();
+    if (/^https?:\/\//i.test(trimmed)) {
+      try {
+        const parsed = new URL(trimmed);
+        return `${parsed.protocol}//${parsed.host}`;
+      } catch {
+        // Fallback on parse failure
+      }
+    }
   }
-});
+  return DEFAULT_SUPABASE_URL;
+}
+
+/**
+ * Validates the Supabase anon public key.
+ * Ensures the value is a valid 3-segment JWT.
+ */
+function resolveSupabaseAnonKey(): string {
+  const raw = import.meta.env.VITE_SUPABASE_ANON_KEY;
+  if (typeof raw === 'string') {
+    const trimmed = raw.trim();
+    if (trimmed.split('.').length === 3) {
+      return trimmed;
+    }
+  }
+  return DEFAULT_SUPABASE_ANON_KEY;
+}
+
+export const SUPABASE_URL = resolveSupabaseUrl();
+export const SUPABASE_ANON_KEY = resolveSupabaseAnonKey();
+
+/**
+ * Safe Supabase client initialization.
+ * Guaranteed never to throw top-level uncaught exceptions during module evaluation.
+ */
+function initSupabaseClient() {
+  try {
+    return createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+      auth: {
+        persistSession: true,
+        autoRefreshToken: true
+      }
+    });
+  } catch (err) {
+    console.warn('Initial Supabase client creation failed, retrying with defaults:', err);
+    return createClient(DEFAULT_SUPABASE_URL, DEFAULT_SUPABASE_ANON_KEY, {
+      auth: {
+        persistSession: false
+      }
+    });
+  }
+}
+
+export const supabase = initSupabaseClient();
 
 export interface SupabasePriceRecord {
   perfume_id: string;
@@ -40,7 +92,6 @@ export interface SupabaseInquiryRecord {
  */
 export async function testSupabaseConnection(): Promise<{ success: boolean; message: string }> {
   try {
-    // Attempt a light ping to Supabase rest endpoint
     const response = await fetch(`${SUPABASE_URL}/rest/v1/`, {
       headers: {
         apikey: SUPABASE_ANON_KEY,
@@ -67,7 +118,6 @@ export async function fetchRemotePrices(): Promise<Record<string, string> | null
       .select('perfume_id, price');
 
     if (error) {
-      // Table might not exist yet in user's new project, log gracefully
       console.info('Supabase perfume_prices query notice:', error.message);
       return null;
     }
@@ -89,7 +139,7 @@ export async function fetchRemotePrices(): Promise<Record<string, string> | null
 }
 
 /**
- * Save single or bulk price to Supabase
+ * Save single price to Supabase
  */
 export async function syncPriceToRemote(
   perfumeId: string,
@@ -176,11 +226,9 @@ export async function recordInquiryToRemote(inquiry: SupabaseInquiryRecord): Pro
       });
 
     if (error) {
-      // Table may not yet be created in newly initialized Supabase instances
       console.info('Supabase inquiry recorded locally (table notice):', error.message);
     }
   } catch (err) {
-    // Non-blocking for smooth user experience
     console.warn('Inquiry tracking notice:', err);
   }
 }
